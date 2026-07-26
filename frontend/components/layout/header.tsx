@@ -94,6 +94,9 @@ export default function Header() {
                     <DropdownMenuItem asChild>
                       <Link href="/admin">Admin Panel</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/operations">Operations Center</Link>
+                    </DropdownMenuItem>
                   </>
                 )}
                 <DropdownMenuSeparator />
@@ -171,11 +174,18 @@ export default function Header() {
                       </Button>
                     </Link>
                     {user.role === "admin" && (
-                      <Link href="/admin">
-                        <Button variant="ghost" className="w-full justify-start">
-                          Admin Panel
-                        </Button>
-                      </Link>
+                      <>
+                        <Link href="/admin">
+                          <Button variant="ghost" className="w-full justify-start">
+                            Admin Panel
+                          </Button>
+                        </Link>
+                        <Link href="/operations">
+                          <Button variant="ghost" className="w-full justify-start">
+                            Operations Center
+                          </Button>
+                        </Link>
+                      </>
                     )}
                     <Button variant="ghost" className="w-full justify-start text-red-600" onClick={logout}>
                       <LogOut className="mr-2 h-4 w-4" />

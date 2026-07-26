@@ -114,7 +114,7 @@ export default function Home() {
                 Why Choose AviaServe
               </h2>
               <p className="max-w-[900px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Experience the difference with our premium airline services designed for your comfort and convenience.
+                Experience the difference with our premium airline services and state-of-the-art operations management.
               </p>
             </div>
           </motion.div>
@@ -126,19 +126,19 @@ export default function Home() {
               {
                 icon: Shield,
                 title: "Safety First",
-                description: "Your safety is our top priority with rigorous maintenance and trained professionals.",
+                description: "Advanced safety management system with real-time incident tracking and 24/7 security monitoring.",
                 image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop",
               },
               {
                 icon: Star,
                 title: "Premium Comfort",
-                description: "Enjoy spacious seating, gourmet meals, and personalized service on every flight.",
+                description: "Spacious seating, gourmet meals, and professional crew trained to the highest standards.",
                 image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=300&fit=crop",
               },
               {
                 icon: Globe,
                 title: "Global Network",
-                description: "Connect to over 150 destinations worldwide with our extensive flight network.",
+                description: "150+ destinations with advanced operations center managing every flight in real-time.",
                 image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop",
               },
             ].map((feature, index) => (

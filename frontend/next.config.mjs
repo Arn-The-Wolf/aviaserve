@@ -8,7 +8,15 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
   },
+  // Optimize for Vercel deployment
+  output: 'standalone',
 }
 
 export default nextConfig

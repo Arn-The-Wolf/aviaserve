@@ -15,7 +15,9 @@ import {
   Settings,
   BarChart3,
   Activity,
+  Shield,
 } from "lucide-react"
+import Link from "next/link"
 import FlightManagement from "@/components/admin/flight-management"
 import UserManagement from "@/components/admin/user-management"
 import BookingManagement from "@/components/admin/booking-management"
@@ -209,6 +211,12 @@ export default function AdminDashboard() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
+                    <Link href="/operations">
+                      <Button className="w-full justify-start bg-blue-600 text-white hover:bg-blue-700">
+                        <Shield className="mr-2 h-4 w-4" />
+                        Operations Center
+                      </Button>
+                    </Link>
                     <Button className="w-full justify-start" variant="outline">
                       <Plane className="mr-2 h-4 w-4" />
                       Add New Flight
@@ -220,10 +228,6 @@ export default function AdminDashboard() {
                     <Button className="w-full justify-start" variant="outline">
                       <BarChart3 className="mr-2 h-4 w-4" />
                       View Reports
-                    </Button>
-                    <Button className="w-full justify-start" variant="outline">
-                      <Settings className="mr-2 h-4 w-4" />
-                      System Settings
                     </Button>
                   </CardContent>
                 </Card>
