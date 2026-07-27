@@ -49,7 +49,7 @@ railway add
 
 railway variables set JWT_SECRET="your-super-secret-jwt-key-change-this-in-production"
 railway variables set SPRING_PROFILES_ACTIVE="production"
-railway variables set CORS_ALLOWED_ORIGINS="https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app,https://frontend-psi-one-88.vercel.app"
+railway variables set CORS_ALLOWED_ORIGINS="https://aviaserve.vercel.app"
 ```
 
 Optional variables:
@@ -118,7 +118,7 @@ In the Render dashboard, add these environment variables:
 DATABASE_URL=<from_render_postgresql_internal_url>
 JWT_SECRET=your-super-secret-jwt-key-change-this
 SPRING_PROFILES_ACTIVE=production
-CORS_ALLOWED_ORIGINS=https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app,https://frontend-psi-one-88.vercel.app
+CORS_ALLOWED_ORIGINS=https://aviaserve.vercel.app
 ```
 
 #### Step 5: Deploy
@@ -160,7 +160,7 @@ heroku addons:create heroku-postgresql:essential-0
 ```bash
 heroku config:set JWT_SECRET="your-super-secret-jwt-key"
 heroku config:set SPRING_PROFILES_ACTIVE="production"
-heroku config:set CORS_ALLOWED_ORIGINS="https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app"
+heroku config:set CORS_ALLOWED_ORIGINS="https://aviaserve.vercel.app"
 ```
 
 #### Step 6: Create Procfile
@@ -404,7 +404,7 @@ mvn clean package -DskipTests
 ### CORS Errors
 Update CORS_ALLOWED_ORIGINS to include your frontend URL:
 ```bash
-railway variables set CORS_ALLOWED_ORIGINS="https://your-frontend.vercel.app"
+railway variables set CORS_ALLOWED_ORIGINS="https://aviaserve.vercel.app"
 ```
 
 ### Database Migration Failures

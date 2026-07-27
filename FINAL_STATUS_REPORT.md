@@ -11,8 +11,8 @@
 ### Frontend: ✅ **LIVE AND RUNNING**
 
 **Production URLs:**
-- Primary: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
-- Alias: https://frontend-psi-one-88.vercel.app
+- Primary: https://aviaserve.vercel.app
+- Deployment URL: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
 
 **Deployment Platform:** Vercel  
 **Build Time:** 2 minutes  
@@ -221,13 +221,13 @@
 
 ### Live Demo
 ```
-https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
+https://aviaserve.vercel.app
 ```
 
 ### Key Pages to Show Employers
-1. **Home:** https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app/
-2. **Operations Dashboard:** https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app/operations
-3. **Admin Panel:** https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app/admin
+1. **Home:** https://aviaserve.vercel.app/
+2. **Operations Dashboard:** https://aviaserve.vercel.app/operations
+3. **Admin Panel:** https://aviaserve.vercel.app/admin
 
 ### GitHub Repository
 ```
@@ -281,7 +281,7 @@ https://github.com/Arn-The-Wolf/aviaserve
 
 1. **Copy Live Demo URL:**
    ```
-   https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
+   https://aviaserve.vercel.app
    ```
 
 2. **Copy GitHub Repository URL:**
@@ -300,7 +300,7 @@ https://github.com/Arn-The-Wolf/aviaserve
    I have built a comprehensive aviation operations management system 
    demonstrating my expertise in airline operations and Java development.
    
-   Live Demo: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
+   Live Demo: https://aviaserve.vercel.app
    GitHub: https://github.com/Arn-The-Wolf/aviaserve
    
    The system includes crew management, flight operations, disruption 

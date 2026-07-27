@@ -3,8 +3,8 @@
 ## ✅ Frontend Deployment - COMPLETE
 
 ### Production URLs
-- **Primary URL**: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
-- **Alias URL**: https://frontend-psi-one-88.vercel.app
+- **Primary URL**: https://aviaserve.vercel.app
+- **Deployment URL**: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
 
 ### Deployment Details
 - **Platform**: Vercel
@@ -138,7 +138,7 @@ SPRING_PROFILES_ACTIVE=production
 SERVER_PORT=8080
 
 # Frontend URL (for CORS)
-FRONTEND_URL=https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
+FRONTEND_URL=https://aviaserve.vercel.app
 
 # Optional: Email Configuration
 SPRING_MAIL_HOST=<smtp_host>
@@ -227,14 +227,14 @@ The backend has Flyway migrations ready to create all tables:
 ## 🔗 Share These Links
 
 ### For Job Application
-**Live Demo**: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
+**Live Demo**: https://aviaserve.vercel.app
 
 **GitHub Repository**: <your_github_repo_url>
 
 **Key Pages to Show**:
-1. Home: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app/
-2. Operations Dashboard: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app/operations
-3. Admin Panel: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app/admin
+1. Home: https://aviaserve.vercel.app/
+2. Operations Dashboard: https://aviaserve.vercel.app/operations
+3. Admin Panel: https://aviaserve.vercel.app/admin
 
 ---
 

@@ -8,7 +8,7 @@
 [![Java](https://img.shields.io/badge/Java-17-orange)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-Portfolio-blue)](LICENSE)
 
-**Live Demo**: [Coming Soon - Deploy to Vercel](https://vercel.com) | **Documentation**: [Full Guide](AVIATION_OPERATIONS_GUIDE.md)
+**Live Demo**: [https://aviaserve.vercel.app](https://aviaserve.vercel.app) | **Documentation**: [Full Guide](AVIATION_OPERATIONS_GUIDE.md)
 
 ---
 

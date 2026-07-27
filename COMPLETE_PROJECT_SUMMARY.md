@@ -3,8 +3,8 @@
 ## 🎉 Project Status: PRODUCTION READY
 
 ### Frontend Deployment: ✅ LIVE
-**Production URL**: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app  
-**Alias URL**: https://frontend-psi-one-88.vercel.app
+**Production URL**: https://aviaserve.vercel.app  
+**Deployment URL**: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
 
 ### Backend: ✅ READY TO DEPLOY
 **Deployment Guide**: See `BACKEND_DEPLOYMENT_GUIDE.md`  
@@ -53,13 +53,13 @@
 
 ### Live Demo
 ```
-https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
+https://aviaserve.vercel.app
 ```
 
 ### Key Pages to Showcase
-1. **Home**: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app/
-2. **Operations Dashboard**: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app/operations
-3. **Admin Panel**: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app/admin
+1. **Home**: https://aviaserve.vercel.app/
+2. **Operations Dashboard**: https://aviaserve.vercel.app/operations
+3. **Admin Panel**: https://aviaserve.vercel.app/admin
 
 ### GitHub Repository
 ```
@@ -103,7 +103,7 @@ I am excited to apply for the Java Developer position with airline operations ex
 I have built a comprehensive aviation operations management system that demonstrates 
 my expertise in the required areas.
 
-🔗 LIVE DEMO: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
+🔗 LIVE DEMO: https://aviaserve.vercel.app
 
 The system includes:
 
@@ -288,7 +288,7 @@ Not just a booking system - includes real aviation operations:
 
 Use this checklist when applying:
 
-- ✅ Share live demo URL: https://frontend-gk45u1jv1-ruyangearnold-5350s-projects.vercel.app
+- ✅ Share live demo URL: https://aviaserve.vercel.app
 - ✅ Link GitHub repository
 - ✅ Mention specific aviation operations modules
 - ✅ Highlight Spring Boot + aviation integration experience
