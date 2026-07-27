@@ -2,16 +2,21 @@ import { NextResponse } from "next/server"
 import Stripe from "stripe"
 import { headers } from "next/headers"
 
-// Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2023-10-16",
-})
+// Initialize Stripe with your secret key (optional for demo)
+const stripe = process.env.STRIPE_SECRET_KEY 
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2023-10-16" })
+  : null
 
 // This is your Stripe webhook secret for testing your endpoint locally
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
 
 export async function POST(request: Request) {
   try {
+    // Return demo response if Stripe is not configured
+    if (!stripe) {
+      return NextResponse.json({ received: true, demo: true })
+    }
+
     const body = await request.text()
     const signature = headers().get("stripe-signature") || ""
 

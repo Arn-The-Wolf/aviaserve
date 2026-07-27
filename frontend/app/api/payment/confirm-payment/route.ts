@@ -1,15 +1,25 @@
 import { NextResponse } from "next/server"
 import Stripe from "stripe"
 
-// Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2023-10-16",
-})
+// Initialize Stripe with your secret key (optional for demo)
+const stripe = process.env.STRIPE_SECRET_KEY 
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2023-10-16" })
+  : null
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
     const { paymentIntentId, bookingId } = body
+
+    // Return demo response if Stripe is not configured
+    if (!stripe) {
+      return NextResponse.json({
+        success: true,
+        status: "succeeded",
+        bookingId,
+        message: "Payment successful (Demo mode - Stripe not configured)",
+      })
+    }
 
     // Retrieve the payment intent to check its status
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
