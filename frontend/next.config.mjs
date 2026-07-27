@@ -15,8 +15,6 @@ const nextConfig = {
       },
     ],
   },
-  // Optimize for Vercel deployment
-  output: 'standalone',
 }
 
 export default nextConfig
