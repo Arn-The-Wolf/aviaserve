@@ -1,133 +1,120 @@
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react"
+import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin, Plane } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-blue text-white">
+    <footer className="bg-[#04101f] text-white">
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center gap-2">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-400/15 text-sky-300">
+                <Plane className="h-4 w-4" />
+              </span>
               <span className="text-2xl font-bold">
-                <span className="text-white">AVIA</span>
-                <span className="text-blue-300">SERVE</span>
+                <span className="text-sky-300">AVIA</span>
+                <span className="text-white">SERVE</span>
               </span>
             </Link>
-            <p className="mt-4 text-gray-300">
-              Experience premium travel with AVIASERVE Airlines. Your journey begins here with comfort, reliability, and
-              exceptional service.
+            <p className="mt-4 max-w-xs text-sm leading-6 text-slate-300">
+              Premium travel with comfort, reliability, and an operations-grade airline experience.
             </p>
-            <div className="mt-6 flex space-x-4">
-              <Link href="#" className="text-gray-300 hover:text-sky-blue">
-                <Facebook className="h-5 w-5" />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link href="#" className="text-gray-300 hover:text-sky-blue">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link href="#" className="text-gray-300 hover:text-sky-blue">
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="#" className="text-gray-300 hover:text-sky-blue">
-                <Youtube className="h-5 w-5" />
-                <span className="sr-only">YouTube</span>
-              </Link>
+            <div className="mt-6 flex space-x-3">
+              {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
+                <Link
+                  key={i}
+                  href="#"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-slate-300 transition hover:bg-sky-500/20 hover:text-sky-300"
+                >
+                  <Icon className="h-4 w-4" />
+                </Link>
+              ))}
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold">Quick Links</h3>
-            <ul className="mt-4 space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-sky-300">Quick Links</h3>
+            <ul className="mt-4 space-y-2 text-slate-300">
               <li>
-                <Link href="/flights" className="text-gray-300 hover:text-sky-blue">
+                <Link href="/flights" className="hover:text-sky-300">
                   Search Flights
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/bookings" className="text-gray-300 hover:text-sky-blue">
+                <Link href="/dashboard/bookings" className="hover:text-sky-300">
                   My Bookings
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/check-in" className="text-gray-300 hover:text-sky-blue">
+                <Link href="/dashboard/check-in" className="hover:text-sky-300">
                   Check-in
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/loyalty" className="text-gray-300 hover:text-sky-blue">
+                <Link href="/dashboard/loyalty" className="hover:text-sky-300">
                   Loyalty Program
                 </Link>
               </li>
               <li>
-                <Link href="/destinations" className="text-gray-300 hover:text-sky-blue">
+                <Link href="/destinations" className="hover:text-sky-300">
                   Destinations
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-semibold">Information</h3>
-            <ul className="mt-4 space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-sky-300">Information</h3>
+            <ul className="mt-4 space-y-2 text-slate-300">
               <li>
-                <Link href="/about" className="text-gray-300 hover:text-sky-blue">
+                <Link href="/about" className="hover:text-sky-300">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-gray-300 hover:text-sky-blue">
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-gray-300 hover:text-sky-blue">
+                <Link href="/terms" className="hover:text-sky-300">
                   Terms & Conditions
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-gray-300 hover:text-sky-blue">
+                <Link href="/privacy" className="hover:text-sky-300">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-gray-300 hover:text-sky-blue">
+                <Link href="/faq" className="hover:text-sky-300">
                   FAQ
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-semibold">Contact Us</h3>
-            <ul className="mt-4 space-y-4">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-sky-300">Contact Us</h3>
+            <ul className="mt-4 space-y-4 text-slate-300">
               <li className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-sky-blue" />
-                <span className="text-gray-300">123 AVIASERVE Tower, Aviation Blvd, New York, NY 10001</span>
+                <MapPin className="mt-0.5 h-5 w-5 text-sky-400" />
+                <span>123 AVIASERVE Tower, Aviation Blvd, New York, NY 10001</span>
               </li>
               <li className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-sky-blue" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <Phone className="h-5 w-5 text-sky-400" />
+                <span>+1 (555) 123-4567</span>
               </li>
               <li className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-sky-blue" />
-                <span className="text-gray-300">support@aviaserve.com</span>
+                <Mail className="h-5 w-5 text-sky-400" />
+                <span>support@aviaserve.com</span>
               </li>
             </ul>
           </div>
         </div>
-        <div className="mt-12 border-t border-gray-700 pt-8">
-          <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
-            <p className="text-sm text-gray-300">
+        <div className="mt-12 border-t border-white/10 pt-8">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-sm text-slate-400">
               &copy; {new Date().getFullYear()} AVIASERVE Airlines. All rights reserved.
             </p>
-            <div className="flex space-x-6">
-              <Link href="/terms" className="text-sm text-gray-300 hover:text-sky-blue">
+            <div className="flex space-x-6 text-sm text-slate-400">
+              <Link href="/terms" className="hover:text-sky-300">
                 Terms
               </Link>
-              <Link href="/privacy" className="text-sm text-gray-300 hover:text-sky-blue">
+              <Link href="/privacy" className="hover:text-sky-300">
                 Privacy
-              </Link>
-              <Link href="/cookies" className="text-sm text-gray-300 hover:text-sky-blue">
-                Cookies
               </Link>
             </div>
           </div>

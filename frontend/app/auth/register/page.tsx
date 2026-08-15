@@ -71,14 +71,15 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="container flex min-h-screen items-center justify-center py-8">
-      <Card className="mx-auto w-full max-w-md">
+    <div className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-[#04101f] px-4 py-16">
+      <div className="avia-aurora pointer-events-none absolute left-0 top-0 h-56 w-56 rounded-full bg-sky-400/20 blur-3xl" />
+      <Card className="relative mx-auto w-full max-w-md border-0 bg-white/95 shadow-2xl">
         <CardHeader className="space-y-1">
           <div className="flex items-center justify-center">
             <Plane className="h-10 w-10 text-sky-blue" />
           </div>
           <CardTitle className="text-2xl text-center">Create an account</CardTitle>
-          <CardDescription className="text-center">Enter your information to create a SkyWings account</CardDescription>
+          <CardDescription className="text-center">Enter your information to create an AviaServe account</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -139,7 +140,7 @@ export default function RegisterPage() {
               </Label>
             </div>
             {errors.agreeTerms && <p className="text-xs text-crimson-red">{errors.agreeTerms}</p>}
-            <Button type="submit" className="w-full bg-sky-blue hover:bg-sky-blue/90" disabled={isSubmitting}>
+            <Button type="submit" className="w-full bg-sky-500 text-white hover:bg-sky-400" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useAuth } from "@/components/auth/auth-provider"
-import { Menu, User, LogOut, ChevronDown } from "lucide-react"
+import { Menu, User, LogOut, ChevronDown, Plane } from "lucide-react"
 
 export default function Header() {
   const pathname = usePathname()
@@ -21,10 +21,8 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 8)
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -39,37 +37,54 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-200 bg-white/95 backdrop-blur ${
-        isScrolled ? "shadow-md" : "shadow-sm"
+      className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
+        isScrolled
+          ? "border-slate-200/80 bg-white/95 shadow-lg shadow-slate-900/5 backdrop-blur-xl"
+          : "border-transparent bg-[#071a33]"
       }`}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold">
-              <span className="bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">AVIA</span>
-              <span className="text-slate-700">SERVE</span>
-            </div>
+          <Link href="/" className="flex items-center gap-2">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-400/20 text-sky-300 ring-1 ring-sky-300/30">
+              <Plane className="h-4 w-4" />
+            </span>
+            <span className="text-xl font-bold tracking-tight">
+              <span className={isScrolled ? "text-sky-600" : "text-sky-300"}>AVIA</span>
+              <span className={isScrolled ? "text-slate-900" : "text-white"}>SERVE</span>
+            </span>
           </Link>
-          <nav className="ml-10 hidden space-x-6 md:flex">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`text-sm font-medium transition-colors ${
-                  pathname === item.href ? "text-blue-600" : "text-gray-600 hover:text-blue-600"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+          <nav className="ml-10 hidden items-center space-x-1 md:flex">
+            {navigation.map((item) => {
+              const active = pathname === item.href
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                    active
+                      ? isScrolled
+                        ? "bg-sky-50 text-sky-700"
+                        : "bg-white/10 text-white"
+                      : isScrolled
+                        ? "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                        : "text-slate-200 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              )
+            })}
           </nav>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center space-x-2">
+                <Button
+                  variant="ghost"
+                  className={`flex items-center space-x-2 ${isScrolled ? "text-slate-800" : "text-white hover:bg-white/10"}`}
+                >
                   <User className="h-4 w-4" />
                   <span>{user.name}</span>
                   <ChevronDown className="h-4 w-4" />
@@ -109,18 +124,25 @@ export default function Header() {
           ) : (
             <div className="hidden space-x-2 md:flex">
               <Link href="/auth/login">
-                <Button variant="ghost" className="text-gray-600 hover:text-blue-600">
+                <Button
+                  variant="ghost"
+                  className={isScrolled ? "text-slate-700" : "text-white hover:bg-white/10 hover:text-white"}
+                >
                   Sign In
                 </Button>
               </Link>
               <Link href="/auth/register">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white">Register</Button>
+                <Button className="bg-sky-500 text-white hover:bg-sky-400">Register</Button>
               </Link>
             </div>
           )}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={`md:hidden ${isScrolled ? "text-slate-800" : "text-white hover:bg-white/10"}`}
+              >
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
@@ -131,8 +153,8 @@ export default function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`text-sm font-medium transition-colors ${
-                      pathname === item.href ? "text-blue-600" : "text-gray-600 hover:text-blue-600"
+                    className={`text-sm font-medium ${
+                      pathname === item.href ? "text-sky-600" : "text-slate-600 hover:text-sky-600"
                     }`}
                   >
                     {item.name}
@@ -146,7 +168,7 @@ export default function Header() {
                       </Button>
                     </Link>
                     <Link href="/auth/register">
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Register</Button>
+                      <Button className="w-full bg-sky-500 text-white hover:bg-sky-400">Register</Button>
                     </Link>
                   </>
                 )}

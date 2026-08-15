@@ -12,7 +12,7 @@ import { CheckCircle2, Plane, Calendar, MapPin, Users, CreditCard, Download, Mai
 import { useBookingStore } from "@/lib/stores/booking-store"
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 1, y: 0 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5 },
 }
@@ -69,7 +69,7 @@ function ConfirmationPage() {
 
       {selectedFlight && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="max-w-4xl mx-auto"

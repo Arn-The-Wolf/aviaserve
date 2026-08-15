@@ -4,115 +4,186 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 217 91% 40%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 40%;
+    --accent: 199 89% 48%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
+    --border: 214 32% 88%;
+    --input: 214 32% 88%;
+    --ring: 217 91% 40%;
+    --radius: 0.9rem;
+    --navy: #071a33;
+    --navy-deep: #04101f;
+    --sky: #38bdf8;
+    --gold: #f0c14b;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+  html {
+    color-scheme: light;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#f4f8fc] text-slate-900 antialiased;
+    background-image:
+      radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08), transparent 40%),
+      radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.06), transparent 35%);
+    min-height: 100vh;
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
+@layer components {
+  .page-hero {
+    @apply relative overflow-hidden px-4 py-16 text-white md:py-20;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.28), transparent 32%),
+      radial-gradient(circle at 85% 0%, rgba(240, 193, 75, 0.16), transparent 28%),
+      linear-gradient(160deg, #04101f 0%, #0b2a4f 55%, #123a66 100%);
+  }
+
+  .glass-panel {
+    @apply rounded-2xl border border-white/20 bg-white/90 shadow-2xl backdrop-blur-xl;
+  }
+
+  .section-kicker {
+    @apply mb-3 inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-sky-700;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
+/* Plane flight across the hero */
+@keyframes avia-fly {
+  0% {
+    transform: translate(-12vw, 18px) rotate(-8deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(110vw, -28px) rotate(10deg);
+    opacity: 0.85;
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
+@keyframes avia-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+@keyframes avia-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(18px);
+  }
 }
 
-/* Smooth animations */
-* {
-  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-}
-
-/* Loading animation */
-@keyframes spin {
+@keyframes avia-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.animate-spin {
-  animation: spin 1s linear infinite;
+@keyframes avia-aurora {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
 }
 
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.avia-fly {
+  animation: avia-fly 16s linear infinite;
 }
 
-/* Glass effect */
-.glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.avia-float {
+  animation: avia-float 5s ease-in-out infinite;
 }
 
-/* Hover effects */
-.hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.avia-drift {
+  animation: avia-drift 9s ease-in-out infinite;
 }
 
-.hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+.avia-rise {
+  animation: avia-rise 0.7s ease-out both;
+}
+
+.avia-rise-delay-1 {
+  animation-delay: 0.1s;
+}
+.avia-rise-delay-2 {
+  animation-delay: 0.2s;
+}
+.avia-rise-delay-3 {
+  animation-delay: 0.35s;
+}
+.avia-rise-delay-4 {
+  animation-delay: 0.5s;
+}
+
+.avia-aurora {
+  animation: avia-aurora 12s ease-in-out infinite;
+}
+
+.starfield span {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 999px;
+  background: white;
+  opacity: 0.55;
+  animation: avia-float 4s ease-in-out infinite;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #e8eef5;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avia-fly,
+  .avia-float,
+  .avia-drift,
+  .avia-rise,
+  .avia-aurora,
+  .starfield span {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

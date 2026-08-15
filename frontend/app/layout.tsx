@@ -7,13 +7,15 @@ import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+})
 
 export const metadata = {
   title: "AVIASERVE Airlines - Your Journey Begins Here",
   description:
     "Experience premium travel with AVIASERVE Airlines. Book your next adventure with comfort, reliability, and exceptional service.",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -23,8 +25,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen bg-white antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+      <body className={`${inter.className} min-h-screen bg-[#f4f8fc] text-slate-900 antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
           <AuthProvider>
             <div className="flex min-h-screen flex-col">
               <Header />

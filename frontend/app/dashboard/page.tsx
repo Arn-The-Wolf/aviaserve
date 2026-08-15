@@ -74,9 +74,10 @@ export default function DashboardPage() {
 
   return (
     <div className="container py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-navy-blue">Welcome back, {user?.name}</h1>
-        <p className="text-gray-500">Manage your bookings, check your loyalty status, and more.</p>
+      <div className="mb-8 rounded-3xl bg-[#071a33] p-8 text-white shadow-xl">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Passenger hub</p>
+        <h1 className="text-3xl font-bold">Welcome back, {user?.name}</h1>
+        <p className="mt-2 text-slate-300">Manage bookings, check-in, loyalty, and your profile.</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">

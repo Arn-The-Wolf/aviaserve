@@ -63,7 +63,7 @@ const users = [
 ]
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 1, y: 0 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5 },
 }
@@ -171,7 +171,7 @@ export default function UserManagement() {
               {filteredUsers.map((user, index) => (
                 <motion.div
                   key={user.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 1, y: 0 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="border rounded-lg p-4 hover:shadow-md transition-shadow"

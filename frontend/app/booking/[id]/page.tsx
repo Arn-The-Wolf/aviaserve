@@ -15,9 +15,9 @@ import SeatSelection from "@/components/booking/seat-selection"
 import ExtrasSelection from "@/components/booking/extras-selection"
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 1, y: 0 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
+  transition: { duration: 0.4 },
 }
 
 export default function BookingPage() {

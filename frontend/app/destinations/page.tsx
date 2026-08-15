@@ -99,9 +99,9 @@ const destinations = [
 ]
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 1, y: 0 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
+  transition: { duration: 0.4 },
 }
 
 const staggerContainer = {
@@ -139,14 +139,19 @@ export default function DestinationsPage() {
     })
 
   return (
-    <div className="container py-8">
-      <motion.div initial="initial" animate="animate" variants={fadeInUp} className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 mb-4">Explore Destinations</h1>
-        <p className="text-gray-600 max-w-2xl">
-          Discover amazing destinations around the world with AviaServe Airlines. From bustling cities to serene
-          beaches, we'll take you there in comfort and style.
-        </p>
-      </motion.div>
+    <div className="pb-16">
+      <section className="page-hero mb-8">
+        <div className="container">
+          <p className="mb-3 inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-sky-200">
+            Network
+          </p>
+          <h1 className="text-3xl font-bold md:text-4xl">Explore destinations</h1>
+          <p className="mt-2 max-w-2xl text-slate-200">
+            From city lights to coastlines, AviaServe takes you there in comfort.
+          </p>
+        </div>
+      </section>
+      <div className="container">
 
       {/* Search and Filters */}
       <motion.div initial="initial" animate="animate" variants={fadeInUp} className="mb-8">
@@ -277,12 +282,13 @@ export default function DestinationsPage() {
       </motion.div>
 
       {filteredDestinations.length === 0 && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
+        <motion.div initial={{ opacity: 1 }} animate={{ opacity: 1 }} className="text-center py-12">
           <MapPin className="h-12 w-12 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">No destinations found</h3>
           <p className="text-gray-500">Try adjusting your search criteria or filters.</p>
         </motion.div>
       )}
+      </div>
     </div>
   )
 }

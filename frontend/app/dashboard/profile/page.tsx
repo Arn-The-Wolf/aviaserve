@@ -16,7 +16,7 @@ import { User, CreditCard, Bell, Shield, Trash2, Plus, Edit } from "lucide-react
 import { useAuth } from "@/components/auth/auth-provider"
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 1, y: 0 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5 },
 }
@@ -82,7 +82,7 @@ export default function ProfilePage() {
         </TabsList>
 
         <TabsContent value="personal" className="space-y-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
@@ -237,7 +237,7 @@ export default function ProfilePage() {
         </TabsContent>
 
         <TabsContent value="payment" className="space-y-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
@@ -283,7 +283,7 @@ export default function ProfilePage() {
         </TabsContent>
 
         <TabsContent value="notifications" className="space-y-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -350,7 +350,7 @@ export default function ProfilePage() {
         </TabsContent>
 
         <TabsContent value="security" className="space-y-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">

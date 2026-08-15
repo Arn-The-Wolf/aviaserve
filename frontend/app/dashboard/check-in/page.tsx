@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import { Plane, Clock, User, Luggage, Wifi, Coffee, QrCode } from "lucide-react"
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 1, y: 0 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5 },
 }
@@ -55,7 +55,7 @@ export default function CheckInPage() {
     return (
       <div className="container py-8">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 1, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
           className="max-w-2xl mx-auto"
@@ -186,7 +186,7 @@ export default function CheckInPage() {
     return (
       <div className="container py-8">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 1, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
           className="max-w-2xl mx-auto text-center"

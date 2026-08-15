@@ -108,13 +108,18 @@ function FlightsPage() {
   }
 
   return (
-    <div className="container py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-navy-blue">Find Your Flight</h1>
-        <p className="text-gray-500">Search for flights to destinations worldwide</p>
-      </div>
-
-      <Card className="mb-8">
+    <div className="pb-16">
+      <section className="page-hero mb-8">
+        <div className="container">
+          <p className="mb-3 inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-sky-200">
+            Search
+          </p>
+          <h1 className="text-3xl font-bold md:text-4xl">Find your flight</h1>
+          <p className="mt-2 max-w-2xl text-slate-200">Search demo inventory and complete a full booking in minutes.</p>
+        </div>
+      </section>
+      <div className="container">
+      <Card className="mb-8 border-0 shadow-xl shadow-slate-900/10">
         <CardHeader>
           <CardTitle>Flight Search</CardTitle>
         </CardHeader>
@@ -244,7 +249,7 @@ function FlightsPage() {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full bg-sky-blue hover:bg-sky-blue/90 text-white">
+                <Button type="submit" className="w-full bg-sky-500 text-white hover:bg-sky-400">
                   <Search className="mr-2 h-4 w-4" />
                   Search Flights
                 </Button>
@@ -343,7 +348,7 @@ function FlightsPage() {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full bg-sky-blue hover:bg-sky-blue/90 text-white">
+                <Button type="submit" className="w-full bg-sky-500 text-white hover:bg-sky-400">
                   <Search className="mr-2 h-4 w-4" />
                   Search Flights
                 </Button>
@@ -367,6 +372,7 @@ function FlightsPage() {
           cabinClass={cabinClass}
         />
       )}
+      </div>
     </div>
   )
 }

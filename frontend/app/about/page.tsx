@@ -7,9 +7,9 @@ import { Badge } from "@/components/ui/badge"
 import { Plane, Users, Award, Globe, Shield, Heart, Zap, Leaf } from "lucide-react"
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 1, y: 0 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
+  transition: { duration: 0.4 },
 }
 
 const staggerContainer = {
@@ -73,20 +73,23 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="container py-8">
-      {/* Hero Section */}
-      <motion.div initial="initial" animate="animate" variants={fadeInUp} className="mb-16 text-center">
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">About AviaServe</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Since 1995, AviaServe has been connecting people and places around the world with safe, reliable, and
-          comfortable air travel. We're more than just an airline – we're your partner in creating unforgettable
-          journeys.
-        </p>
-      </motion.div>
+    <div className="pb-16">
+      <section className="page-hero mb-10">
+        <div className="container text-center">
+          <p className="mb-3 inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-sky-200">
+            Our story
+          </p>
+          <h1 className="text-4xl font-bold">About AviaServe</h1>
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-slate-200">
+            Since 1995, AviaServe has connected people and places with safe, reliable, and comfortable air travel.
+          </p>
+        </div>
+      </section>
+      <div className="container">
 
       {/* Hero Image */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ opacity: 1, scale: 1 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
         className="mb-16"
@@ -296,6 +299,7 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </motion.div>
+      </div>
     </div>
   )
 }

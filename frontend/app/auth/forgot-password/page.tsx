@@ -28,8 +28,8 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="container flex h-screen items-center justify-center">
-      <Card className="mx-auto w-full max-w-md">
+    <div className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-[#04101f] px-4 py-16">
+      <Card className="relative mx-auto w-full max-w-md border-0 bg-white/95 shadow-2xl">
         <CardHeader className="space-y-1">
           <div className="flex items-center justify-center">
             <Plane className="h-10 w-10 text-sky-blue" />

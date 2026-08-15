@@ -34,7 +34,7 @@ export default function PaymentForm(props: PaymentFormProps) {
 function PaymentSuccess({ onViewBookings }: { onViewBookings: () => void }) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
       className="flex flex-col items-center justify-center py-10"

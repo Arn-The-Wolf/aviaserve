@@ -55,7 +55,7 @@ export default function FlightCard({ flight, onSelect }: FlightCardProps) {
   }
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden border-slate-100 shadow-lg shadow-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-xl">
       <CardContent className="p-0">
         <div className="flex flex-col md:flex-row">
           <div className="flex-1 p-4">
@@ -129,12 +129,12 @@ export default function FlightCard({ flight, onSelect }: FlightCardProps) {
             </div>
           </div>
 
-          <div className="flex flex-row md:flex-col items-center justify-between bg-sky-blue/5 p-4 md:w-48">
+          <div className="flex flex-row items-center justify-between bg-sky-50 p-4 md:w-48 md:flex-col">
             <div className="text-center">
-              <div className="text-2xl font-bold text-navy-blue">${flight.price}</div>
+              <div className="text-2xl font-bold text-slate-900">${flight.price}</div>
               <div className="text-xs text-gray-500">per passenger</div>
             </div>
-            <Button onClick={onSelect} className="bg-orange hover:bg-orange/90 text-white">
+            <Button onClick={onSelect} className="bg-sky-500 text-white hover:bg-sky-400">
               Select
             </Button>
           </div>

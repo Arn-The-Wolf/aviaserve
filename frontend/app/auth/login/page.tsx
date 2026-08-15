@@ -30,13 +30,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="container flex h-screen items-center justify-center">
-      <Card className="mx-auto w-full max-w-md">
+    <div className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-[#04101f] px-4 py-16">
+      <div className="avia-aurora pointer-events-none absolute right-0 top-0 h-56 w-56 rounded-full bg-sky-400/20 blur-3xl" />
+      <Card className="relative mx-auto w-full max-w-md border-0 bg-white/95 shadow-2xl">
         <CardHeader className="space-y-1">
           <div className="flex items-center justify-center">
             <Plane className="h-10 w-10 text-sky-blue" />
           </div>
-          <CardTitle className="text-2xl text-center">Sign in to SkyWings</CardTitle>
+          <CardTitle className="text-2xl text-center">Sign in to AviaServe</CardTitle>
           <CardDescription className="text-center">
             Enter your email and password to access your account. Demo admin: admin@aviaserve.com / admin123
           </CardDescription>
@@ -69,7 +70,7 @@ export default function LoginPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full bg-sky-blue hover:bg-sky-blue/90" disabled={isSubmitting}>
+            <Button type="submit" className="w-full bg-sky-500 text-white hover:bg-sky-400" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

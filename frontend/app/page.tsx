@@ -2,345 +2,254 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Check, Globe, Shield, Star } from "lucide-react"
+import { ArrowRight, Check, Globe, Shield, Star, Plane } from "lucide-react"
 import AnimatedHero from "@/components/animations/animated-hero"
 import TestimonialCard from "@/components/home/testimonial-card"
 import PartnerLogos from "@/components/home/partner-logos"
 import FlightSearchWidget from "@/components/home/flight-search-widget"
 import StatsSection from "@/components/home/stats-section"
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 60 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 },
-}
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
+const destinations = [
+  {
+    city: "Paris",
+    country: "France",
+    price: "From $599",
+    image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&h=600&fit=crop",
   },
-}
+  {
+    city: "Tokyo",
+    country: "Japan",
+    price: "From $899",
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=600&fit=crop",
+  },
+  {
+    city: "New York",
+    country: "USA",
+    price: "From $399",
+    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&h=600&fit=crop",
+  },
+  {
+    city: "Dubai",
+    country: "UAE",
+    price: "From $799",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&h=600&fit=crop",
+  },
+  {
+    city: "London",
+    country: "UK",
+    price: "From $549",
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=600&fit=crop",
+  },
+  {
+    city: "Sydney",
+    country: "Australia",
+    price: "From $1,299",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+  },
+]
 
-const scaleIn = {
-  initial: { opacity: 0, scale: 0.8 },
-  animate: { opacity: 1, scale: 1 },
-  transition: { duration: 0.5 },
-}
+const features = [
+  {
+    icon: Shield,
+    title: "Safety First",
+    description: "Advanced safety management with real-time incident tracking and 24/7 monitoring.",
+    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=500&fit=crop",
+  },
+  {
+    icon: Star,
+    title: "Premium Comfort",
+    description: "Spacious seating, gourmet meals, and crew trained to the highest standards.",
+    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&h=500&fit=crop",
+  },
+  {
+    icon: Globe,
+    title: "Global Network",
+    description: "150+ destinations with an operations center managing every flight in real time.",
+    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=500&fit=crop",
+  },
+]
 
 export default function Home() {
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-white to-slate-50 py-20 md:py-32 pb-40 md:pb-48 overflow-hidden">
-        <motion.div className="container px-4 md:px-6" initial="initial" animate="animate" variants={staggerContainer}>
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
-            <motion.div className="flex flex-col justify-center space-y-4" variants={fadeInUp}>
-              <div className="space-y-2">
-                <motion.div className="inline-block" variants={fadeInUp}>
-                  <span className="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-                    Your Journey Begins Here
-                  </span>
-                </motion.div>
-                <motion.h1
-                  className="text-4xl font-bold tracking-tighter text-slate-900 sm:text-5xl xl:text-6xl/none"
-                  variants={fadeInUp}
-                >
-                  Fly Beyond Expectations with{" "}
-                  <span className="bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
-                    AviaServe
-                  </span>
-                </motion.h1>
-                <motion.p className="max-w-[600px] text-gray-600 md:text-xl" variants={fadeInUp}>
-                  Experience premium travel with comfort, reliability, and exceptional service. Book your next adventure
-                  and discover destinations worldwide with our award-winning airline.
-                </motion.p>
-              </div>
-              <motion.div className="flex flex-col gap-2 min-[400px]:flex-row" variants={fadeInUp}>
-                <Link href="/flights">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                      Book Now <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </motion.div>
-                </Link>
-                <Link href="/auth/login">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                      Sign In
-                    </Button>
-                  </motion.div>
-                </Link>
-              </motion.div>
-            </motion.div>
-            <motion.div className="flex items-center justify-center" variants={scaleIn}>
-              <AnimatedHero />
-            </motion.div>
-          </div>
-        </motion.div>
+      <section className="relative overflow-hidden bg-[#04101f] pb-28 pt-10 text-white md:pb-32 md:pt-16">
+        <div className="starfield pointer-events-none absolute inset-0">
+          {Array.from({ length: 18 }).map((_, i) => (
+            <span
+              key={i}
+              style={{
+                top: `${8 + ((i * 17) % 80)}%`,
+                left: `${4 + ((i * 23) % 92)}%`,
+                animationDelay: `${i * 0.18}s`,
+              }}
+            />
+          ))}
+        </div>
+        <div className="avia-aurora pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-sky-400/20 blur-3xl" />
+        <div className="avia-aurora pointer-events-none absolute right-0 top-10 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl" />
+        <Plane className="avia-fly pointer-events-none absolute top-16 z-20 h-10 w-10 text-sky-200" />
 
-        {/* Floating Flight Search Widget */}
-        <motion.div
-          className="relative z-10 mx-auto mt-12 w-full max-w-6xl px-4"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
+        <div className="container relative z-10 px-4 md:px-6">
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            <div>
+              <p className="avia-rise avia-rise-delay-1 mb-4 inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-sky-200">
+                Your journey begins here
+              </p>
+              <h1 className="avia-rise avia-rise-delay-2 text-4xl font-bold tracking-tight sm:text-5xl xl:text-6xl">
+                Fly beyond expectations with{" "}
+                <span className="bg-gradient-to-r from-sky-300 to-blue-200 bg-clip-text text-transparent">
+                  AviaServe
+                </span>
+              </h1>
+              <p className="avia-rise avia-rise-delay-3 mt-4 max-w-xl text-lg text-slate-300">
+                Search, book, check in, and follow your trip — with an operations center built for real airline workflows.
+              </p>
+              <div className="avia-rise avia-rise-delay-4 mt-8 flex flex-wrap gap-3">
+                <Link href="/flights">
+                  <Button className="h-12 bg-sky-500 px-6 text-white hover:bg-sky-400">
+                    Book now <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="/operations">
+                  <Button variant="outline" className="h-12 border-white/20 bg-white/5 text-white hover:bg-white/10">
+                    Operations center
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="avia-rise avia-rise-delay-3">
+              <AnimatedHero />
+            </div>
+          </div>
+        </div>
+
+        <div className="avia-rise avia-rise-delay-4 relative z-20 mx-auto mt-12 w-full max-w-6xl px-4">
           <FlightSearchWidget />
-        </motion.div>
+        </div>
       </section>
 
-      {/* Stats Section */}
       <section className="w-full py-16 md:py-24">
         <StatsSection />
       </section>
 
-      {/* Features Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-        <motion.div
-          className="container px-4 md:px-6"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={fadeInUp}>
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter text-slate-900 sm:text-4xl md:text-5xl">
-                Why Choose AviaServe
-              </h2>
-              <p className="max-w-[900px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Experience the difference with our premium airline services and state-of-the-art operations management.
-              </p>
-            </div>
-          </motion.div>
-          <motion.div
-            className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12"
-            variants={staggerContainer}
-          >
-            {[
-              {
-                icon: Shield,
-                title: "Safety First",
-                description: "Advanced safety management system with real-time incident tracking and 24/7 security monitoring.",
-                image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop",
-              },
-              {
-                icon: Star,
-                title: "Premium Comfort",
-                description: "Spacious seating, gourmet meals, and professional crew trained to the highest standards.",
-                image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=300&fit=crop",
-              },
-              {
-                icon: Globe,
-                title: "Global Network",
-                description: "150+ destinations with advanced operations center managing every flight in real-time.",
-                image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop",
-              },
-            ].map((feature, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={feature.image || "/placeholder.svg"}
-                      alt={feature.title}
-                      fill
-                      className="object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <motion.div
-                      className="absolute bottom-4 left-4 rounded-full bg-white/20 backdrop-blur-sm p-3"
-                      whileHover={{ scale: 1.1, rotate: 360 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <feature.icon className="h-6 w-6 text-white" />
-                    </motion.div>
+      <section className="w-full bg-white py-16 md:py-24">
+        <div className="container px-4 md:px-6">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <p className="section-kicker">Why fly with us</p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Why choose AviaServe</h2>
+            <p className="mt-3 text-lg text-slate-600">
+              Premium passenger service paired with airline-grade operations.
+            </p>
+          </div>
+          <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-3">
+            {features.map((feature) => (
+              <Card
+                key={feature.title}
+                className="overflow-hidden border-slate-100 shadow-lg shadow-slate-900/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <Image src={feature.image} alt={feature.title} fill className="object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent" />
+                  <div className="absolute bottom-4 left-4 rounded-full bg-white/20 p-3 backdrop-blur-sm">
+                    <feature.icon className="h-6 w-6 text-white" />
                   </div>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="mb-2 text-xl font-bold text-slate-900">{feature.title}</h3>
+                  <p className="text-slate-600">{feature.description}</p>
+                </CardContent>
+              </Card>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
 
-      {/* Destinations Showcase */}
-      <section className="w-full py-12 md:py-24 lg:py-32">
-        <motion.div
-          className="container px-4 md:px-6"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <motion.div
-            className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
-            variants={fadeInUp}
-          >
-            <h2 className="text-3xl font-bold tracking-tighter text-slate-900 sm:text-4xl md:text-5xl">
-              Popular Destinations
-            </h2>
-            <p className="max-w-[900px] text-gray-600 md:text-xl/relaxed">
-              Discover amazing destinations around the world with AviaServe Airlines.
-            </p>
-          </motion.div>
-
-          <motion.div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" variants={staggerContainer}>
-            {[
-              {
-                city: "Paris",
-                country: "France",
-                price: "From $599",
-                image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=500&h=400&fit=crop",
-              },
-              {
-                city: "Tokyo",
-                country: "Japan",
-                price: "From $899",
-                image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=500&h=400&fit=crop",
-              },
-              {
-                city: "New York",
-                country: "USA",
-                price: "From $399",
-                image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=500&h=400&fit=crop",
-              },
-              {
-                city: "Dubai",
-                country: "UAE",
-                price: "From $799",
-                image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&h=400&fit=crop",
-              },
-              {
-                city: "London",
-                country: "UK",
-                price: "From $549",
-                image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=500&h=400&fit=crop",
-              },
-              {
-                city: "Sydney",
-                country: "Australia",
-                price: "From $1,299",
-                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop",
-              },
-            ].map((destination, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group cursor-pointer">
+      <section className="w-full py-16 md:py-24">
+        <div className="container px-4 md:px-6">
+          <div className="mb-12 text-center">
+            <p className="section-kicker">Explore</p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Popular destinations</h2>
+            <p className="mt-3 text-lg text-slate-600">Discover cities around the world with AviaServe.</p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {destinations.map((destination) => (
+              <Link key={destination.city} href={`/flights?destination=${encodeURIComponent(destination.city)}`}>
+                <Card className="group cursor-pointer overflow-hidden border-0 shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
                   <div className="relative h-64 overflow-hidden">
                     <Image
-                      src={destination.image || "/placeholder.svg"}
+                      src={destination.image}
                       alt={destination.city}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="object-cover transition duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
                     <div className="absolute bottom-4 left-4 text-white">
                       <h3 className="text-2xl font-bold">{destination.city}</h3>
-                      <p className="text-white/90">{destination.country}</p>
-                      <p className="text-blue-300 font-semibold mt-1">{destination.price}</p>
+                      <p className="text-white/85">{destination.country}</p>
+                      <p className="mt-1 font-semibold text-sky-300">{destination.price}</p>
                     </div>
                   </div>
                 </Card>
-              </motion.div>
+              </Link>
             ))}
-          </motion.div>
-
-          <motion.div className="text-center mt-12" variants={fadeInUp}>
+          </div>
+          <div className="mt-10 text-center">
             <Link href="/destinations">
-              <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                View All Destinations
+              <Button variant="outline" className="border-sky-300 text-sky-700 hover:bg-sky-50">
+                View all destinations
               </Button>
             </Link>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Loyalty Program */}
-      <section className="w-full bg-slate-900 py-12 md:py-24 lg:py-32 text-white">
-        <motion.div
-          className="container px-4 md:px-6"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
-            <motion.div className="flex flex-col justify-center space-y-4" variants={fadeInUp}>
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  AviaServe Rewards Program
-                </h2>
-                <p className="max-w-[600px] text-gray-300 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Join our loyalty program and enjoy exclusive benefits, earn points with every flight, and redeem them
-                  for free flights and upgrades.
-                </p>
-              </div>
-              <motion.ul className="grid gap-2" variants={staggerContainer}>
-                {[
-                  "Earn points with every flight",
-                  "Priority boarding and check-in",
-                  "Access to exclusive lounges",
-                  "Free upgrades and companion tickets",
-                ].map((benefit, index) => (
-                  <motion.li key={index} className="flex items-center gap-2" variants={fadeInUp}>
-                    <Check className="h-5 w-5 text-green-400" />
-                    <span>{benefit}</span>
-                  </motion.li>
-                ))}
-              </motion.ul>
-              <motion.div variants={fadeInUp}>
-                <Link href="/auth/register">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">Join Now</Button>
-                  </motion.div>
-                </Link>
-              </motion.div>
-            </motion.div>
-            <motion.div className="flex items-center justify-center" variants={scaleIn}>
-              <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-                <Image
-                  src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=600&h=400&fit=crop"
-                  width={600}
-                  height={400}
-                  alt="Loyalty Program"
-                  className="rounded-lg object-cover"
-                />
-              </motion.div>
-            </motion.div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="w-full py-12 md:py-24 lg:py-32">
-        <motion.div
-          className="container px-4 md:px-6"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={fadeInUp}>
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter text-slate-900 sm:text-4xl md:text-5xl">
-                What Our Passengers Say
-              </h2>
-              <p className="max-w-[900px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Hear from our satisfied customers about their experience flying with AviaServe Airlines.
-              </p>
-            </div>
-          </motion.div>
-          <motion.div
-            className="mx-auto grid max-w-5xl gap-6 py-12 lg:grid-cols-3 lg:gap-12"
-            variants={staggerContainer}
-          >
+      <section className="relative overflow-hidden bg-[#071a33] py-16 text-white md:py-24">
+        <div className="avia-aurora pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full bg-sky-400/20 blur-3xl" />
+        <div className="container relative grid items-center gap-10 px-4 md:px-6 lg:grid-cols-2">
+          <div>
+            <p className="section-kicker border-sky-400/20 bg-sky-400/10 text-sky-200">Rewards</p>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">AviaServe Rewards</h2>
+            <p className="mt-4 max-w-xl text-lg text-slate-300">
+              Earn points on every flight and unlock lounge access, upgrades, and priority boarding.
+            </p>
+            <ul className="mt-6 grid gap-3">
+              {[
+                "Earn points with every flight",
+                "Priority boarding and check-in",
+                "Access to exclusive lounges",
+                "Free upgrades and companion tickets",
+              ].map((benefit) => (
+                <li key={benefit} className="flex items-center gap-2 text-slate-100">
+                  <Check className="h-5 w-5 text-emerald-400" />
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
+            <Link href="/auth/register" className="mt-8 inline-block">
+              <Button className="bg-sky-500 text-white hover:bg-sky-400">Join now</Button>
+            </Link>
+          </div>
+          <div className="overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+            <Image
+              src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=1200&h=800&fit=crop"
+              width={600}
+              height={400}
+              alt="Loyalty program"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full py-16 md:py-24">
+        <div className="container px-4 md:px-6">
+          <div className="mb-12 text-center">
+            <p className="section-kicker">Stories</p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">What our passengers say</h2>
+          </div>
+          <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-3">
             {[
               {
                 name: "Sarah Johnson",
@@ -366,72 +275,41 @@ export default function Home() {
                 rating: 4,
                 avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
               },
-            ].map((testimonial, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <TestimonialCard {...testimonial} />
-              </motion.div>
+            ].map((testimonial) => (
+              <TestimonialCard key={testimonial.name} {...testimonial} />
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
 
-      {/* Partner Airlines */}
-      <section className="w-full py-12 md:py-24 bg-gray-50">
-        <motion.div
-          className="container px-4 md:px-6"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={fadeInUp}>
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter text-slate-900">Our Trusted Partners</h2>
-              <p className="max-w-[900px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                We partner with leading airlines to provide you with the best global connectivity.
-              </p>
-            </div>
-          </motion.div>
-          <motion.div className="mx-auto py-8" variants={fadeInUp}>
-            <PartnerLogos />
-          </motion.div>
-        </motion.div>
+      <section className="w-full bg-white py-16">
+        <div className="container px-4 md:px-6">
+          <div className="mb-8 text-center">
+            <h2 className="text-2xl font-bold text-slate-900">Trusted partners</h2>
+            <p className="mt-2 text-slate-600">Global connectivity through leading airline alliances.</p>
+          </div>
+          <PartnerLogos />
+        </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="w-full bg-blue-600 py-12 md:py-24 lg:py-32 text-white">
-        <motion.div
-          className="container px-4 md:px-6"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          <motion.div className="flex flex-col items-center justify-center space-y-4 text-center" variants={fadeInUp}>
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Ready for Your Next Adventure?
-              </h2>
-              <p className="max-w-[600px] text-blue-100 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Book your flight today and experience the AviaServe difference. Your journey begins here.
-              </p>
-            </div>
-            <motion.div className="flex flex-col gap-2 min-[400px]:flex-row" variants={fadeInUp}>
-              <Link href="/flights">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button className="bg-white text-blue-600 hover:bg-gray-100">Search Flights</Button>
-                </motion.div>
-              </Link>
-              <Link href="/auth/register">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button variant="outline" className="border-white text-white hover:bg-white/10">
-                    Create Account
-                  </Button>
-                </motion.div>
-              </Link>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+      <section className="relative overflow-hidden bg-gradient-to-r from-sky-600 to-blue-700 py-16 text-white md:py-24">
+        <Plane className="avia-float pointer-events-none absolute right-10 top-8 h-16 w-16 text-white/20" />
+        <div className="container relative px-4 text-center md:px-6">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ready for your next adventure?</h2>
+          <p className="mx-auto mt-3 max-w-xl text-lg text-sky-50">
+            Book today and walk the full passenger flow — search, seats, extras, and checkout.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link href="/flights">
+              <Button className="h-12 bg-white text-sky-700 hover:bg-sky-50">Search flights</Button>
+            </Link>
+            <Link href="/auth/register">
+              <Button variant="outline" className="h-12 border-white/40 bg-transparent text-white hover:bg-white/10">
+                Create account
+              </Button>
+            </Link>
+          </div>
+        </div>
       </section>
     </div>
   )
