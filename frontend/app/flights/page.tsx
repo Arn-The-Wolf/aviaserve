@@ -2,8 +2,8 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { Suspense, useEffect, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -15,7 +15,6 @@ import { format } from "date-fns"
 import { CalendarIcon, Search } from "lucide-react"
 import FlightSearchResults from "@/components/flights/flight-search-results"
 
-// Mock data for airports
 const airports = [
   { code: "JFK", name: "John F. Kennedy International Airport", city: "New York" },
   { code: "LAX", name: "Los Angeles International Airport", city: "Los Angeles" },
@@ -29,23 +28,83 @@ const airports = [
   { code: "SYD", name: "Sydney Airport", city: "Sydney" },
 ]
 
-export default function FlightsPage() {
+const cityToCode: Record<string, string> = {
+  Paris: "CDG",
+  Tokyo: "HND",
+  "New York": "JFK",
+  Dubai: "DXB",
+  London: "LHR",
+  Sydney: "SYD",
+  "Los Angeles": "LAX",
+  Chicago: "ORD",
+  Miami: "MIA",
+  "San Francisco": "SFO",
+}
+
+const startOfToday = () => {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return today
+}
+
+function parseFlightSearch(searchParams: URLSearchParams) {
+  const destinationParam = searchParams.get("destination") || ""
+  const resolvedDestination = cityToCode[destinationParam] || destinationParam
+  const originParam = searchParams.get("origin") || (resolvedDestination ? "JFK" : "")
+  const dateParam = searchParams.get("date")
+  const passengersParam = searchParams.get("passengers") || "1"
+  let departureDate: Date | undefined
+  if (dateParam) {
+    const parsed = new Date(`${dateParam}T12:00:00`)
+    if (!Number.isNaN(parsed.getTime())) departureDate = parsed
+  } else if (originParam && resolvedDestination) {
+    departureDate = new Date()
+    departureDate.setDate(departureDate.getDate() + 7)
+  }
+  return {
+    origin: originParam,
+    destination: resolvedDestination,
+    departureDate,
+    passengers: passengersParam,
+    showResults: Boolean(originParam && resolvedDestination && departureDate),
+  }
+}
+
+function FlightsPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const initial = parseFlightSearch(searchParams)
   const [tripType, setTripType] = useState("roundTrip")
-  const [origin, setOrigin] = useState("")
-  const [destination, setDestination] = useState("")
-  const [departureDate, setDepartureDate] = useState<Date | undefined>(undefined)
+  const [origin, setOrigin] = useState(initial.origin)
+  const [destination, setDestination] = useState(initial.destination)
+  const [departureDate, setDepartureDate] = useState<Date | undefined>(initial.departureDate)
   const [returnDate, setReturnDate] = useState<Date | undefined>(undefined)
-  const [passengers, setPassengers] = useState("1")
+  const [passengers, setPassengers] = useState(initial.passengers)
   const [cabinClass, setCabinClass] = useState("economy")
-  const [showResults, setShowResults] = useState(false)
+  const [showResults, setShowResults] = useState(initial.showResults)
+
+  useEffect(() => {
+    const next = parseFlightSearch(searchParams)
+    setOrigin(next.origin)
+    setDestination(next.destination)
+    setDepartureDate(next.departureDate)
+    setPassengers(next.passengers)
+    if (next.showResults) setShowResults(true)
+  }, [searchParams])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
+    if (!origin || !destination || !departureDate) {
+      return
+    }
+    const params = new URLSearchParams({
+      origin,
+      destination,
+      date: format(departureDate, "yyyy-MM-dd"),
+      passengers,
+    })
+    router.replace(`/flights?${params.toString()}`)
     setShowResults(true)
-
-    // In a real app, you would navigate to a results page with query params
-    // router.push(`/flights/search?origin=${origin}&destination=${destination}...`)
   }
 
   return (
@@ -121,7 +180,7 @@ export default function FlightsPage() {
                           selected={departureDate}
                           onSelect={setDepartureDate}
                           initialFocus
-                          disabled={(date) => date < new Date()}
+                          disabled={(date) => date < startOfToday()}
                         />
                       </PopoverContent>
                     </Popover>
@@ -146,7 +205,7 @@ export default function FlightsPage() {
                           selected={returnDate}
                           onSelect={setReturnDate}
                           initialFocus
-                          disabled={(date) => date < new Date() || (departureDate ? date < departureDate : false)}
+                          disabled={(date) => date < startOfToday() || (departureDate ? date < departureDate : false)}
                         />
                       </PopoverContent>
                     </Popover>
@@ -246,7 +305,7 @@ export default function FlightsPage() {
                           selected={departureDate}
                           onSelect={setDepartureDate}
                           initialFocus
-                          disabled={(date) => date < new Date()}
+                          disabled={(date) => date < startOfToday()}
                         />
                       </PopoverContent>
                     </Popover>
@@ -299,7 +358,7 @@ export default function FlightsPage() {
         </CardContent>
       </Card>
 
-      {showResults && (
+      {showResults && origin && destination && departureDate && (
         <FlightSearchResults
           origin={origin}
           destination={destination}
@@ -309,5 +368,13 @@ export default function FlightsPage() {
         />
       )}
     </div>
+  )
+}
+
+export default function FlightsPageWithSuspense() {
+  return (
+    <Suspense fallback={<div className="container py-8">Loading flights...</div>}>
+      <FlightsPage />
+    </Suspense>
   )
 }

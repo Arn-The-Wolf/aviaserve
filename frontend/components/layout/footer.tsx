@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Image from "next/image"
 import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react"
 
 export default function Footer() {
@@ -9,13 +8,10 @@ export default function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link href="/" className="flex items-center space-x-2">
-              <Image
-                src="/images/aviaserve-logo.png"
-                alt="AVIASERVE"
-                width={120}
-                height={40}
-                className="object-contain brightness-0 invert"
-              />
+              <span className="text-2xl font-bold">
+                <span className="text-white">AVIA</span>
+                <span className="text-blue-300">SERVE</span>
+              </span>
             </Link>
             <p className="mt-4 text-gray-300">
               Experience premium travel with AVIASERVE Airlines. Your journey begins here with comfort, reliability, and

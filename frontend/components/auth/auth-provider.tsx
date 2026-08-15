@@ -30,23 +30,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const { toast } = useToast()
 
+  const persistSession = (nextUser: User, token: string) => {
+    localStorage.setItem("token", token)
+    localStorage.setItem("user", JSON.stringify(nextUser))
+    document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`
+  }
+
+  const clearSession = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    document.cookie = "token=; path=/; max-age=0; SameSite=Lax"
+  }
+
   useEffect(() => {
-    // Check if user is logged in
     const token = localStorage.getItem("token")
+    const storedUser = localStorage.getItem("user")
     if (token) {
-      // In a real app, you would verify the token with your backend
       try {
-        // For demo purposes, we'll use a mock user
-        const mockUser = {
-          id: "1",
-          name: "John Doe",
-          email: "john@example.com",
-          role: "user" as const,
+        if (storedUser) {
+          setUser(JSON.parse(storedUser) as User)
+        } else {
+          setUser({
+            id: "1",
+            name: "John Doe",
+            email: "john@example.com",
+            role: "user",
+          })
         }
-        setUser(mockUser)
       } catch (error) {
         console.error("Failed to verify token:", error)
-        localStorage.removeItem("token")
+        clearSession()
       }
     }
     setLoading(false)
@@ -60,15 +73,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const mockResponse = {
         user: {
           id: "1",
-          name: "John Doe",
+          name: email.includes("admin") ? "AviaServe Admin" : email.split("@")[0] || "Guest",
           email,
           role: email.includes("admin") ? "admin" : "user",
         } as User,
         token: "mock-jwt-token",
       }
 
-      // Store the token in localStorage
-      localStorage.setItem("token", mockResponse.token)
+      persistSession(mockResponse.user, mockResponse.token)
       setUser(mockResponse.user)
 
       toast({
@@ -76,8 +88,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         description: `Welcome back, ${mockResponse.user.name}!`,
       })
 
-      // Redirect based on role
-      if (mockResponse.user.role === "admin") {
+      const from = new URLSearchParams(window.location.search).get("from")
+      if (from && from.startsWith("/") && !from.startsWith("//")) {
+        router.push(from)
+      } else if (mockResponse.user.role === "admin") {
         router.push("/admin")
       } else {
         router.push("/dashboard")
@@ -109,13 +123,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         token: "mock-jwt-token",
       }
 
-      // Store the token in localStorage
-      localStorage.setItem("token", mockResponse.token)
+      persistSession(mockResponse.user, mockResponse.token)
       setUser(mockResponse.user)
 
       toast({
         title: "Registration successful",
-        description: `Welcome to SkyWings, ${name}!`,
+        description: `Welcome to AviaServe, ${name}!`,
       })
 
       router.push("/dashboard")
@@ -132,7 +145,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const logout = () => {
-    localStorage.removeItem("token")
+    clearSession()
     setUser(null)
     toast({
       title: "Logged out",

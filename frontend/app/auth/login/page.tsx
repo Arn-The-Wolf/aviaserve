@@ -38,7 +38,7 @@ export default function LoginPage() {
           </div>
           <CardTitle className="text-2xl text-center">Sign in to SkyWings</CardTitle>
           <CardDescription className="text-center">
-            Enter your email and password to access your account
+            Enter your email and password to access your account. Demo admin: admin@aviaserve.com / admin123
           </CardDescription>
         </CardHeader>
         <CardContent>

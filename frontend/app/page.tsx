@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-white to-slate-50 py-20 md:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-blue-50 via-white to-slate-50 py-20 md:py-32 pb-40 md:pb-48 overflow-hidden">
         <motion.div className="container px-4 md:px-6" initial="initial" animate="animate" variants={staggerContainer}>
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
             <motion.div className="flex flex-col justify-center space-y-4" variants={fadeInUp}>
@@ -85,8 +85,8 @@ export default function Home() {
 
         {/* Floating Flight Search Widget */}
         <motion.div
-          className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-full max-w-6xl px-4"
-          initial={{ opacity: 0, y: 100 }}
+          className="relative z-10 mx-auto mt-12 w-full max-w-6xl px-4"
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >

@@ -17,6 +17,7 @@ const destinations = [
     city: "Paris",
     country: "France",
     continent: "Europe",
+    airportCode: "CDG",
     description: "The City of Light awaits with its iconic landmarks, world-class museums, and romantic atmosphere.",
     image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=600&h=400&fit=crop",
     price: 599,
@@ -30,6 +31,7 @@ const destinations = [
     city: "Tokyo",
     country: "Japan",
     continent: "Asia",
+    airportCode: "HND",
     description: "Experience the perfect blend of traditional culture and cutting-edge technology.",
     image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&h=400&fit=crop",
     price: 899,
@@ -43,6 +45,7 @@ const destinations = [
     city: "New York",
     country: "USA",
     continent: "North America",
+    airportCode: "JFK",
     description: "The city that never sleeps offers endless entertainment, culture, and dining experiences.",
     image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop",
     price: 399,
@@ -56,6 +59,7 @@ const destinations = [
     city: "Dubai",
     country: "UAE",
     continent: "Asia",
+    airportCode: "DXB",
     description: "A modern oasis in the desert with luxury shopping, stunning architecture, and world-class dining.",
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop",
     price: 799,
@@ -69,6 +73,7 @@ const destinations = [
     city: "London",
     country: "UK",
     continent: "Europe",
+    airportCode: "LHR",
     description: "Rich history meets modern culture in this vibrant capital city.",
     image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&h=400&fit=crop",
     price: 549,
@@ -82,6 +87,7 @@ const destinations = [
     city: "Sydney",
     country: "Australia",
     continent: "Oceania",
+    airportCode: "SYD",
     description: "Beautiful harbors, iconic landmarks, and stunning beaches await in this vibrant city.",
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
     price: 1299,
@@ -258,9 +264,11 @@ export default function DestinationsPage() {
                     <p className="text-sm text-gray-500">Starting from</p>
                     <p className="text-2xl font-bold text-blue-600">${destination.price}</p>
                   </div>
-                  <Link href={`/flights?destination=${destination.city}`}>
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">Book Flight</Button>
-                  </Link>
+                  <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+                    <Link href={`/flights?origin=JFK&destination=${destination.airportCode}`}>
+                      Book Flight
+                    </Link>
+                  </Button>
                 </div>
               </CardContent>
             </Card>

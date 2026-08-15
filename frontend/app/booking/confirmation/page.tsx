@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 import Link from "next/link"
@@ -17,7 +17,7 @@ const fadeInUp = {
   transition: { duration: 0.5 },
 }
 
-export default function ConfirmationPage() {
+function ConfirmationPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { toast } = useToast()
@@ -180,7 +180,7 @@ export default function ConfirmationPage() {
                     <CreditCard className="h-5 w-5 text-blue-600 mt-0.5" />
                     <div>
                       <p className="font-medium text-slate-900">Payment</p>
-                      <p className="text-gray-600">Payment ID: {paymentId.substring(0, 8)}...</p>
+                      <p className="text-gray-600">Payment ID: {paymentId ? `${paymentId.substring(0, 8)}...` : "Demo"}</p>
                       <p className="text-gray-600">Status: Confirmed</p>
                     </div>
                   </div>
@@ -253,5 +253,13 @@ export default function ConfirmationPage() {
         </motion.div>
       )}
     </div>
+  )
+}
+
+export default function ConfirmationPageWithSuspense() {
+  return (
+    <Suspense fallback={<div className="container py-12">Finalizing your booking...</div>}>
+      <ConfirmationPage />
+    </Suspense>
   )
 }

@@ -1,19 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { Wifi, Coffee, Monitor, Loader2 } from "lucide-react"
 import FlightCard from "@/components/flights/flight-card"
+import { useBookingStore } from "@/lib/stores/booking-store"
 
-// Mock flight data
 const generateFlights = (origin: string, destination: string, date?: Date) => {
   if (!origin || !destination || !date) return []
 
   const airlines = [
-    { code: "SW", name: "SkyWings Airlines" },
+    { code: "AS", name: "AviaServe Airlines" },
     { code: "DL", name: "Delta Airlines" },
     { code: "UA", name: "United Airlines" },
     { code: "AA", name: "American Airlines" },
@@ -21,27 +22,28 @@ const generateFlights = (origin: string, destination: string, date?: Date) => {
   ]
 
   const flights = []
-  const baseDate = date ? new Date(date) : new Date()
+  const baseDate = new Date(date)
+  const seed = origin.charCodeAt(0) + destination.charCodeAt(0) + date.getDate()
 
   for (let i = 0; i < 8; i++) {
-    const airline = airlines[Math.floor(Math.random() * airlines.length)]
-    const flightNumber = `${airline.code}${Math.floor(Math.random() * 1000) + 1000}`
+    const airline = airlines[(seed + i) % airlines.length]
+    const flightNumber = `${airline.code}${1000 + ((seed * (i + 3)) % 9000)}`
 
-    const departureHour = 6 + Math.floor(Math.random() * 12)
-    const departureMinute = Math.floor(Math.random() * 60)
+    const departureHour = 6 + ((seed + i * 3) % 12)
+    const departureMinute = ((seed + i * 7) % 12) * 5
     const departureDate = new Date(baseDate)
-    departureDate.setHours(departureHour, departureMinute, 0)
+    departureDate.setHours(departureHour, departureMinute, 0, 0)
 
-    const durationHours = 1 + Math.floor(Math.random() * 5)
-    const durationMinutes = Math.floor(Math.random() * 60)
+    const durationHours = 1 + ((seed + i) % 5)
+    const durationMinutes = ((seed + i * 11) % 12) * 5
 
     const arrivalDate = new Date(departureDate)
     arrivalDate.setHours(departureDate.getHours() + durationHours, departureDate.getMinutes() + durationMinutes)
 
-    const price = 150 + Math.floor(Math.random() * 500)
+    const price = 150 + ((seed * (i + 1) * 37) % 500)
 
     flights.push({
-      id: `flight-${i}`,
+      id: `flight-${origin}-${destination}-${i}`,
       flightNumber,
       airline: airline.name,
       origin,
@@ -50,12 +52,12 @@ const generateFlights = (origin: string, destination: string, date?: Date) => {
       arrivalDate: arrivalDate.toISOString(),
       duration: { hours: durationHours, minutes: durationMinutes },
       price,
-      stops: Math.random() > 0.7 ? 1 : 0,
+      stops: (seed + i) % 5 === 0 ? 1 : 0,
       amenities: {
-        wifi: Math.random() > 0.5,
-        entertainment: Math.random() > 0.3,
-        power: Math.random() > 0.4,
-        food: Math.random() > 0.6,
+        wifi: (seed + i) % 2 === 0,
+        entertainment: (seed + i) % 3 !== 0,
+        power: (seed + i) % 4 !== 0,
+        food: (seed + i) % 2 === 1,
       },
     })
   }
@@ -78,23 +80,68 @@ export default function FlightSearchResults({
   returnDate,
   cabinClass,
 }: FlightSearchResultsProps) {
+  const router = useRouter()
+  const setSelectedFlight = useBookingStore((state) => state.setSelectedFlight)
+  const resetStore = useBookingStore((state) => state.resetStore)
   const [loading, setLoading] = useState(true)
   const [sortBy, setSortBy] = useState("price")
   const [priceRange, setPriceRange] = useState([0, 1000])
   const [selectedAirlines, setSelectedAirlines] = useState<string[]>([])
   const [selectedStops, setSelectedStops] = useState<number[]>([])
 
-  // Generate mock flights
-  const outboundFlights = generateFlights(origin, destination, departureDate)
-  const returnFlights = returnDate ? generateFlights(destination, origin, returnDate) : []
+  const outboundFlights = useMemo(
+    () => generateFlights(origin, destination, departureDate),
+    [origin, destination, departureDate],
+  )
+  const returnFlights = useMemo(
+    () => (returnDate ? generateFlights(destination, origin, returnDate) : []),
+    [destination, origin, returnDate],
+  )
 
-  // Simulate API loading
-  useState(() => {
+  useEffect(() => {
+    setLoading(true)
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 1500)
+    }, 800)
     return () => clearTimeout(timer)
-  })
+  }, [origin, destination, departureDate, returnDate])
+
+  const filterAndSort = (flights: typeof outboundFlights) => {
+    return flights
+      .filter((flight) => flight.price >= priceRange[0] && flight.price <= priceRange[1])
+      .filter((flight) => (selectedStops.length === 0 ? true : selectedStops.includes(flight.stops)))
+      .filter((flight) => (selectedAirlines.length === 0 ? true : selectedAirlines.includes(flight.airline)))
+      .sort((a, b) => {
+        if (sortBy === "duration") {
+          return a.duration.hours * 60 + a.duration.minutes - (b.duration.hours * 60 + b.duration.minutes)
+        }
+        if (sortBy === "departure") {
+          return new Date(a.departureDate).getTime() - new Date(b.departureDate).getTime()
+        }
+        if (sortBy === "arrival") {
+          return new Date(a.arrivalDate).getTime() - new Date(b.arrivalDate).getTime()
+        }
+        return a.price - b.price
+      })
+  }
+
+  const handleSelectFlight = (flight: (typeof outboundFlights)[number]) => {
+    const departure = new Date(flight.departureDate)
+    const arrival = new Date(flight.arrivalDate)
+    resetStore()
+    setSelectedFlight({
+      id: flight.id,
+      flightNumber: flight.flightNumber,
+      origin: flight.origin,
+      destination: flight.destination,
+      departureTime: departure.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      arrivalTime: arrival.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      date: departure.toLocaleDateString(),
+      price: flight.price,
+      airline: flight.airline,
+    })
+    router.push(`/booking/${flight.id}`)
+  }
 
   if (loading) {
     return (
@@ -106,7 +153,6 @@ export default function FlightSearchResults({
     )
   }
 
-  // Get airport names from codes
   const getAirportName = (code: string) => {
     const airports = {
       JFK: "New York",
@@ -122,6 +168,9 @@ export default function FlightSearchResults({
     }
     return airports[code as keyof typeof airports] || code
   }
+
+  const visibleOutbound = filterAndSort(outboundFlights)
+  const visibleReturn = filterAndSort(returnFlights)
 
   return (
     <div>
@@ -214,7 +263,7 @@ export default function FlightSearchResults({
               <div>
                 <h3 className="mb-2 font-medium">Airlines</h3>
                 <div className="space-y-2">
-                  {["SkyWings Airlines", "Delta Airlines", "United Airlines"].map((airline) => (
+                  {["AviaServe Airlines", "Delta Airlines", "United Airlines"].map((airline) => (
                     <Button
                       key={airline}
                       variant={selectedAirlines.includes(airline) ? "default" : "outline"}
@@ -259,16 +308,9 @@ export default function FlightSearchResults({
           <div>
             <h3 className="mb-4 text-xl font-bold text-navy-blue">Outbound Flight</h3>
             <div className="space-y-4">
-              {outboundFlights.length > 0 ? (
-                outboundFlights.map((flight) => (
-                  <FlightCard
-                    key={flight.id}
-                    flight={flight}
-                    onSelect={() => {
-                      // In a real app, you would store the selected flight
-                      // and navigate to the next step
-                    }}
-                  />
+              {visibleOutbound.length > 0 ? (
+                visibleOutbound.map((flight) => (
+                  <FlightCard key={flight.id} flight={flight} onSelect={() => handleSelectFlight(flight)} />
                 ))
               ) : (
                 <Card>
@@ -285,16 +327,9 @@ export default function FlightSearchResults({
             <div>
               <h3 className="mb-4 text-xl font-bold text-navy-blue">Return Flight</h3>
               <div className="space-y-4">
-                {returnFlights.length > 0 ? (
-                  returnFlights.map((flight) => (
-                    <FlightCard
-                      key={flight.id}
-                      flight={flight}
-                      onSelect={() => {
-                        // In a real app, you would store the selected flight
-                        // and navigate to the next step
-                      }}
-                    />
+                {visibleReturn.length > 0 ? (
+                  visibleReturn.map((flight) => (
+                    <FlightCard key={flight.id} flight={flight} onSelect={() => handleSelectFlight(flight)} />
                   ))
                 ) : (
                   <Card>

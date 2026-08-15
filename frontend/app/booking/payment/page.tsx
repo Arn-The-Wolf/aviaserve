@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -18,7 +18,7 @@ const fadeInUp = {
   transition: { duration: 0.5 },
 }
 
-export default function PaymentPage() {
+function PaymentPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { toast } = useToast()
@@ -173,5 +173,13 @@ export default function PaymentPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function PaymentPageWithSuspense() {
+  return (
+    <Suspense fallback={<div className="container py-12">Loading payment...</div>}>
+      <PaymentPage />
+    </Suspense>
   )
 }

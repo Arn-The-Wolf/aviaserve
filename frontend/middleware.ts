@@ -5,20 +5,22 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("token");
   const { pathname } = request.nextUrl;
 
-  // Public paths that don't require authentication
-  const publicPaths = [
-    "/auth/login",
-    "/auth/register",
-    "/",
-    "/about",
-    "/contact",
-    "/faq",
-    "/privacy",
-    "/terms",
-  ];
+  const isExactOrNested = (base: string) =>
+    pathname === base || pathname.startsWith(`${base}/`);
 
-  // Check if the path is public
-  const isPublicPath = publicPaths.some((path) => pathname.startsWith(path));
+  // Public browsing and booking demo — visitors can use the site without an account
+  const isPublicPath =
+    pathname === "/" ||
+    isExactOrNested("/auth") ||
+    isExactOrNested("/about") ||
+    isExactOrNested("/contact") ||
+    isExactOrNested("/faq") ||
+    isExactOrNested("/privacy") ||
+    isExactOrNested("/terms") ||
+    isExactOrNested("/flights") ||
+    isExactOrNested("/destinations") ||
+    isExactOrNested("/booking") ||
+    isExactOrNested("/operations");
 
   // If the path is not public and there's no token, redirect to login
   if (!isPublicPath && !token) {

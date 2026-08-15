@@ -50,11 +50,11 @@ export default function BookingPage() {
 
   const handleContinueToPayment = () => {
     // Validate that we have all required information
-    if (passengers.length === 0) {
+    if (passengers.length === 0 || passengers.some((p) => !p.name.trim())) {
       toast({
         variant: "destructive",
         title: "Missing passenger information",
-        description: "Please add at least one passenger to continue.",
+        description: "Please add at least one passenger with a full name.",
       })
       setActiveTab("passengers")
       return
@@ -99,7 +99,20 @@ export default function BookingPage() {
             <TabsContent value="passengers" className="space-y-4 pt-4">
               <PassengerForm />
               <div className="flex justify-end">
-                <Button onClick={() => setActiveTab("seats")} className="bg-blue-600 hover:bg-blue-700 text-white">
+                <Button
+                  onClick={() => {
+                    if (passengers.length === 0 || passengers.some((p) => !p.name.trim())) {
+                      toast({
+                        variant: "destructive",
+                        title: "Missing passenger information",
+                        description: "Please add at least one passenger with a full name.",
+                      })
+                      return
+                    }
+                    setActiveTab("seats")
+                  }}
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                >
                   Continue to Seat Selection
                 </Button>
               </div>

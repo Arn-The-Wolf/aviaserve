@@ -92,7 +92,11 @@ export const useBookingStore = create<BookingStore>()(
 
       // Passenger information
       passengers: [],
-      addPassenger: (passenger) => set((state) => ({ passengers: [...state.passengers, passenger] })),
+      addPassenger: (passenger) =>
+        set((state) => ({
+          passengers: [...state.passengers, passenger],
+          selectedSeats: [...state.selectedSeats, ""],
+        })),
       updatePassenger: (index, passenger) =>
         set((state) => ({
           passengers: state.passengers.map((p, i) => (i === index ? passenger : p)),
@@ -100,14 +104,18 @@ export const useBookingStore = create<BookingStore>()(
       removePassenger: (index) =>
         set((state) => ({
           passengers: state.passengers.filter((_, i) => i !== index),
+          selectedSeats: state.selectedSeats.filter((_, i) => i !== index),
         })),
 
       // Seat selection
       selectedSeats: [],
       selectSeat: (index, seat) =>
-        set((state) => ({
-          selectedSeats: state.selectedSeats.map((s, i) => (i === index ? seat : s)),
-        })),
+        set((state) => {
+          const seats = [...state.selectedSeats]
+          while (seats.length <= index) seats.push("")
+          seats[index] = seat
+          return { selectedSeats: seats }
+        }),
 
       // Extras and add-ons
       extras: {

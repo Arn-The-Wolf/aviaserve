@@ -11,6 +11,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
 import { CalendarIcon, Search, ArrowLeftRight } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 
 const airports = [
   { code: "JFK", name: "New York" },
@@ -25,6 +26,7 @@ const airports = [
 
 export default function FlightSearchWidget() {
   const router = useRouter()
+  const { toast } = useToast()
   const [origin, setOrigin] = useState("")
   const [destination, setDestination] = useState("")
   const [departureDate, setDepartureDate] = useState<Date | undefined>(undefined)
@@ -32,9 +34,21 @@ export default function FlightSearchWidget() {
   const [passengers, setPassengers] = useState("1")
 
   const handleSearch = () => {
-    if (origin && destination && departureDate) {
-      router.push("/flights")
+    if (!origin || !destination || !departureDate) {
+      toast({
+        title: "Complete your search",
+        description: "Please choose origin, destination, and departure date.",
+        variant: "destructive",
+      })
+      return
     }
+    const params = new URLSearchParams({
+      origin,
+      destination,
+      date: format(departureDate, "yyyy-MM-dd"),
+      passengers,
+    })
+    router.push(`/flights?${params.toString()}`)
   }
 
   const swapAirports = () => {
@@ -110,7 +124,11 @@ export default function FlightSearchWidget() {
                     selected={departureDate}
                     onSelect={setDepartureDate}
                     initialFocus
-                    disabled={(date) => date < new Date()}
+                    disabled={(date) => {
+                      const today = new Date()
+                      today.setHours(0, 0, 0, 0)
+                      return date < today
+                    }}
                   />
                 </PopoverContent>
               </Popover>
